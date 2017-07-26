@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 数据库配置 -->
+    <bean id="propertyConfigurer" 
+    		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    		  <property name="locations">
+    		  	<list>
+    		  		<value>classpath:jdbc.properties</value>
+    		  	</list>
+    		  </property>
+    </bean>
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driverClassName}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+
+		<property name="initialPoolSize" value="2"/>
+        <property name="minPoolSize" value="2"/>
+        <property name="maxPoolSize" value="10"/>
+        <property name="maxIdleTime" value="7200"/>
+
+        <property name="idleConnectionTestPeriod" value="360"/>
+        <property name="preferredTestQuery" value="select 1 from dual"/>
+        <property name="acquireIncrement" value="5"/>
+        <property name="acquireRetryAttempts" value="50"/>
+        <property name="acquireRetryDelay" value="1000"/>
+        <property name="breakAfterAcquireFailure" value="true"/>
+
+        <property name="checkoutTimeout" value="10000"/>
+        <property name="autoCommitOnClose" value="false"/>
+        <property name="forceIgnoreUnresolvedTransactions" value="false"/>
+
+        <property name="maxStatements" value="0"/>
+        <property name="maxStatementsPerConnection" value="0"/>
+
+        <property name="testConnectionOnCheckin" value="true"/>
+        <property name="testConnectionOnCheckout" value="false"/>
+        <property name="usesTraditionalReflectiveProxies" value="false"/>
+
+        <property name="numHelperThreads" value="5"/>
+    </bean>
+</beans>
